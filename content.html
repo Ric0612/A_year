@@ -6,19 +6,19 @@
     <link rel="stylesheet" href="css/content.css">
 
     <style>
+        /* Use grid so we can place actions under the message column */
         .landscape {
-            display: flex;
-            align-items: stretch;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: 44% 56%;
             gap: 24px;
             max-width: 1100px;
             margin: 36px auto;
             padding: 20px;
             box-sizing: border-box;
+            align-items: start;
         }
 
         .gif_container{
-            flex: 0 0 44%;
             display:flex;
             align-items:center;
             justify-content:center;
@@ -26,19 +26,20 @@
 
         .gif_container img{
             width:100%;
-            max-width:360px; 
+            max-width:360px;
+            aspect-ratio: 16/9;
             height:auto;
             border-radius:12px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+            object-fit: cover;
         }
 
         .message_container{
-            flex: 1 1 56%;
             background: linear-gradient(180deg, #fff5fb 0%, #ffeef6 100%);
             border-radius:12px;
             padding:20px;
             box-shadow: 0 8px 24px rgba(0,0,0,0.12);
-            max-height: 60vh; 
+            max-height: 60vh;
             overflow-y: auto;
         }
 
@@ -61,18 +62,69 @@
             border-radius: 8px;
         }
 
+        /* Actions placed under the message column on desktop */
+        .actions{
+            grid-column: 2; /* align under message column */
+            display:flex;
+            justify-content:flex-end;
+            gap:12px;
+            margin-top:12px;
+            align-items:center;
+        }
+
+        .actions a{
+            text-decoration:none;
+            padding:8px 12px;
+            border-radius:6px;
+            color:#fff;
+            font-weight:600;
+        }
+        .actions .fb{
+            background:#1877f2;
+        }
+        .actions .back{
+            background:#ff9bb3;
+        }
+
+        /* ensure header is visible and readable on all screens */
+        .header_text{
+            text-align: center;
+            color: #b3005a;
+            font-size: 2rem;       /* larger on desktop */
+            line-height: 1.1;
+            margin: 8px 0 18px;
+            font-weight: 700;
+            display: block;
+        }
+
+        /* small screens: slightly larger header and extra top padding to avoid clipping */
         @media (max-width: 720px){
-            .landscape{ flex-direction: column; max-width: 92%; }
-            .gif_container{ flex: none; }
-            .message_container{ max-height: 50vh; margin-top: 12px; }
+            .header_text{
+                font-size: 1.6rem;
+                margin-top: 10px;
+            }
+            .container{
+                padding-top: 10px; /* ensure header isn't hidden under any browser UI */
+            }
+
+            .landscape{
+                grid-template-columns: 1fr;
+                max-width: 92%;
+            }
             .gif_container img{ max-width: 280px; }
+            .message_container{ max-height: 50vh; margin-top: 12px; }
+            .actions{
+                grid-column: 1;
+                justify-content: center;
+                margin-top: 14px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div>
-            <h1 class="header_text">HAPPY 1 YEAR!</h1>
+            <h4 class="header_text">HAPPY 1 YEAR!</h4>
         </div>
 
         <div class="landscape">
@@ -93,11 +145,14 @@
 
                 <p style="margin-top:18px;">Always yours,<br>Richi Baby</p>
             </div>
+
+            <!-- actions sit under message_container (grid-column:2) on desktop, centered on mobile -->
+            <div class="actions" aria-hidden="false">
+                <a class="fb" id="fbContact" href="https://www.facebook.com/Squidy12Mojo" target="_blank" rel="noopener noreferrer">Message your future husband</a>
+                <a class="back" href="index.html">Go back</a>
+            </div>
         </div>
 
-    <div style="position: fixed; bottom: 10px; left: 50%; transform: translateX(-50%); display:flex; gap:12px; align-items:center; z-index:1000;">
-        <a id="fbContact" href="https://www.facebook.com/Squidy12Mojo" target="_blank" rel="noopener noreferrer" style="text-decoration:none; padding:8px 12px; border-radius:6px; background:#1877f2; color:#fff; font-weight:600;">Message your future husband</a>
-        <a href="index.html" style="text-decoration:none; padding:8px 12px; border-radius:6px; background:#ff9bb3; color:#fff; font-weight:600;">Go back</a>
     </div>
 
 </body>
